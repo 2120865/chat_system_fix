@@ -12,7 +12,7 @@ sudo usermod -aG docker $USER
 sudo apt install docker-compose -y
 
 # installing project
-cd /opt && sudo git clone …
+cd /opt && sudo git clone https://github.com/2120865/chat_system_fix.git
 cd chat_system_fix
 docker-compose up -d
 ```
