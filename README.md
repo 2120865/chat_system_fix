@@ -242,7 +242,7 @@ function usernameExists($conn, $username) {
 ## Fix 7 - Sensitive Data Exposure
 
 - http://127.0.0.1:81/phpinfo.php
-
+- http://127.0.0.1:81/robots.txt
 ```
 It's not recommended to make phpinfo.php publicly accessible on a production server due to security concerns.
 The phpinfo() function in PHP displays a lot of information about your PHP environment,
