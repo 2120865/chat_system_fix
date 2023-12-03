@@ -1,0 +1,48 @@
+version: "3"
+
+networks:
+  chat-net:
+    driver: bridge
+
+services:
+  web:
+    build:
+      context: "."
+      dockerfile: "Dockerfile"
+    image: "webimage"
+    container_name: "webcontainer"
+    volumes:
+      - .:/var/www/html/
+    depends_on:
+      - db
+    networks:
+      - chat-net
+    ports:
+      - "127.0.0.1:81:80"
+
+  db:
+    image: mysql:5.7
+    container_name: dbcontainer
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: chat_system
+    volumes:
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+    networks:
+      - chat-net
+    ports:
+      - "127.0.0.1:3307:3306"
+    privileged: true
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: phpmyadmincontainer
+    links:
+      - db:db
+    environment:
+      PMA_HOST: db
+      MYSQL_ROOT_PASSWORD: root
+    networks:
+      - chat-net
+    ports:
+      - "127.0.0.1:82:80"
